@@ -1,15 +1,24 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
-import Root from './routes/root';
+import ErrorPage from './ErrorPage';
+import Root, { loader as rootLoader } from './routes/root';
+import Contact from './routes/contact';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    errorElement: <ErrorPage />,
+    loader: rootLoader,
+    children: [
+      {
+        path: 'contacts/:contactId',
+        element: <Contact />,
+      },
+    ],
   },
 ]);
 const root = createRoot(document.getElementById('root'));
